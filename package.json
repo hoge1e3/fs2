@@ -1,0 +1,44 @@
+{
+  "name": "@hoge1e3/fs2",
+  "version": "1.0.0",
+  "description": "Combination of petit-fs and SFile",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build-dev": "npx tsc && npx webpack --mode=development",
+    "build": "npx tsc && npx webpack --mode=production",
+    "test": "npx http-server -o test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoge1e3/fs2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "types": "src/index.d.ts",
+  "files": [
+    "tsconfig.json",
+    "dist",
+    "src"
+  ],
+  "bugs": {
+    "url": "https://github.com/hoge1e3/fs2/issues"
+  },
+  "homepage": "https://github.com/hoge1e3/fs2#readme",
+  "dependencies": {
+    "@hoge1e3/sfile": "^1.0.8",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
+    "petit-fs": "^1.1.9"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.0.1",
+    "@types/file-saver": "^2.0.7",
+    "chai": "^5.1.2",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-ignore-dynamic-require": "^1.0.0"
+  }
+}
