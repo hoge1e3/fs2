@@ -17,8 +17,10 @@ export function mount(mountPoint:string, fs:string|FSClass){
 export function unmount(mountPoint:string){
     //nodePolyfill.fs.un
 }
-export function getEnv(name:string){
-    return process.env[name];
+export function getEnv(name:string):string;
+export function getEnv():typeof process.env;
+export function getEnv(name?:string){
+    return name==null? process.env : process.env[name];
 }
 export function setEnv(name:string, value:string){
     process.env[name]=value;

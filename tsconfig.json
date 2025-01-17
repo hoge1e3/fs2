@@ -15,5 +15,6 @@
       "strict": true,
       "allowSyntheticDefaultImports": true,
       //"outDir":"./js"
-    }
+    },
+    "include": ["src","test"],
   }

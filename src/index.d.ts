@@ -1,4 +1,4 @@
-import { FSClass } from "petit-fs";
+import { process, FSClass } from "petit-fs";
 export { PathUtil, getRootFS, fs, path, os, process, Buffer, LSFS, FSClass } from "petit-fs";
 import { FileSystemFactory, SFile } from "@hoge1e3/sfile";
 export { zip } from "./zip.js";
@@ -48,6 +48,7 @@ export declare function get(path: string): SFile;
 export declare function mount(mountPoint: string, fs: string | FSClass): void;
 export declare function unmount(mountPoint: string): void;
 export declare function getEnv(name: string): string;
+export declare function getEnv(): typeof process.env;
 export declare function setEnv(name: string, value: string): void;
 export declare function init(): void;
 export declare function expand(str: string): string;
