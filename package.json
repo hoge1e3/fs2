@@ -2,7 +2,9 @@
   "name": "@hoge1e3/fs2",
   "version": "1.0.2",
   "description": "Combination of petit-fs and SFile",
-  "main": "./dist/index.js",
+  "type": "module",
+  "types": "./src/index.d.ts",
+  "main": "./src/index.js",
   "scripts": {
     "build-dev": "npx tsc && npx webpack --mode=development",
     "build": "npx tsc && npx webpack --mode=production",
@@ -15,8 +17,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
-  "types": "src/index.d.ts",
   "files": [
     "tsconfig.json",
     "dist",

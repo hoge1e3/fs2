@@ -25,7 +25,7 @@ export class zip {
             return new Date(f.lastUpdate() - new Date().getTimezoneOffset() * 60 * 1000);
         }
         async function loop(dst:JSZip, dir:SFile) {
-            for (let f of dir.listFiles({...options, cacheMeta:true})) {
+            for (let f of dir.listFiles({...options, cache:true})) {
                 if (options.progress) {
                     await options.progress(f);
                 }
