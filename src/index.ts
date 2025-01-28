@@ -2,6 +2,8 @@ import {PathUtil, fs, path, os, process, Buffer, getRootFS,FSClass} from "petit-
 export {PathUtil, getRootFS, fs, path, os, process, Buffer, LSFS, FSClass} from "petit-fs";
 import {FileSystemFactory, SFile} from "@hoge1e3/sfile";
 export {zip} from "./zip.js";
+import _JSZip from "jszip";
+export const JSZip = _JSZip;
 //import * as exp from "node:constants";
 export {SFile} from "@hoge1e3/sfile"
 export const nodePolyfill={fs,path,os,process,Buffer};

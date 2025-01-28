@@ -77,6 +77,7 @@ try {
     await extractFixture(zip);
     const fixture=zip.rel("fixture/");
     const romd=fixture.rel("rom/");
+    checkCopyDir(fixture);
     // check relpath:
     //  path= /a/b/c   base=/a/b/  res=c
     assert.eq(r("a/b/c").relPath(r("a/b/")) , "c");
@@ -200,9 +201,9 @@ try {
         fixture.rel("sub/test.png").dataURL(pngurl);
 
         fixture.rel("sub/test.png").copyTo(testdir.rel("test.png"));
-        chkCpy(fixture.rel("Tonyu/Projects/MapTest/Test.tonyu"));
-        chkCpy(fixture.rel("Tonyu/Projects/MapTest/images/park.png"));
-        chkCpy(testdir.rel("test.png"));
+        checkCopyFile(fixture.rel("Tonyu/Projects/MapTest/Test.tonyu"));
+        checkCopyFile(fixture.rel("Tonyu/Projects/MapTest/images/park.png"));
+        checkCopyFile(testdir.rel("test.png"));
         testdir.rel("test.png").rm();
         //---- test append
         let beforeAppend = fixture.rel("Tonyu/Projects/MapTest/Test.tonyu");
@@ -217,7 +218,7 @@ try {
     
         _console.log("text.txt", testdir.rel("test.txt").path(), testdir.rel("test.txt").text());
         testdir.rel("test.txt").text(romd.rel("Actor.tonyu").text() + ABCD + CDEF);
-        chkCpy(testdir.rel("test.txt"));
+        checkCopyFile(testdir.rel("test.txt"));
         testdir.rel("test.txt").text(ABCD);
         //testEach(testd);
         //--- the big file
@@ -381,7 +382,25 @@ async function chkBigFile(testd: SFile) {
         });//.then(DU.NOP, DU.E);
     }
 }*/
-function chkCpy(f:SFile) {
+function checkCopyDir(dir:SFile) {
+    let tmp = dir.sibling("tmp_" + dir.name());
+    dir.copyTo(tmp);
+    checkSameDir(dir, tmp);
+    tmp.rm({r:true});
+}
+function checkSameDir(a:SFile, b:SFile) {
+    let res1 = [] as string[];
+    let res2 = [] as string[];
+    a.recursive(function (f:SFile) {
+        res1.push(f.relPath(a));
+    });
+    b.recursive(function (f:SFile) {
+        res2.push(f.relPath(b));
+    });
+    _console.log("checkSameDir", a.path(), b.path(), res1, res2);
+    _assert.deepStrictEqual(res1.sort(), res2.sort());
+}
+function checkCopyFile(f:SFile) {
     let tmp = f.sibling("tmp_" + f.name());
     f.copyTo(tmp);
     checkSame(f, tmp);

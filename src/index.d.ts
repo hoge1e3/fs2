@@ -2,6 +2,8 @@ import { process, FSClass } from "petit-fs";
 export { PathUtil, getRootFS, fs, path, os, process, Buffer, LSFS, FSClass } from "petit-fs";
 import { FileSystemFactory, SFile } from "@hoge1e3/sfile";
 export { zip } from "./zip.js";
+import _JSZip from "jszip";
+export declare const JSZip: _JSZip;
 export { SFile } from "@hoge1e3/sfile";
 export declare const nodePolyfill: {
     fs: import("petit-fs/src/vfsUtil.js").FileSystem;
