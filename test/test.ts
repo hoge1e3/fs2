@@ -238,6 +238,7 @@ try {
         _console.log("BLOB read done!", f.name(), tmp.name());
         tmp.rm();
         f.rm();
+        await checkZip(fixture, ["rom/"]);
         await moveTest(testdir);
         //setTimeout(function () {location.reload();},10000);
         await asyncTest(testdir);
@@ -611,7 +612,7 @@ function checkMtime(f:SFile) {
     assert(Math.abs(f.lastUpdate()-nt)<2000);
 }
 
-async function checkZip(dir:SFile) {
+async function checkZip(dir:SFile, excludes=[] as string[]) {
     const cleanExt=async ()=>{
         assert.eq(ext.name(),"ext/");
         if (ext.exists()) {
@@ -631,32 +632,34 @@ async function checkZip(dir:SFile) {
     let ext = dir.rel("ext/");
     await cleanExt();
     dir.rel("ziping.txt").text("zipping");
-    let tre = dir.getDirTree();
-    _console.log("TRE", tre);
+    let treeSrc = dir.getDirTree({excludes, style:"flat-relative"});
+    _console.log("TRE", treeSrc);
     const zipf = FS.get("/ram/comp.zip");
-    await FS.zip.zip(dir, zipf);
+    await FS.zip.zip(dir, zipf, {excludes});
     ext.mkdir();
     await FS.zip.unzip(zipf, ext);
 
-    let tre2 = ext.getDirTree();
-    _console.log("TRE2", tre2);
+    let treeExt = ext.getDirTree({excludes, style:"flat-relative"});
+    _console.log("TRE2", treeExt);
     dir.rel("ziping.txt").rm();
     await cleanExt();
-    assert.eq(Object.keys(tre).length, Object.keys(tre2).length);
-    for (let k2 of Object.keys(tre2)) {
-        let k = k2.replace(/\/ext/, "");
-        _console.log("k-k2", k, k2);
-        assert(k2 in tre2);
-        assert(k in tre);
-        const trek=tre[k] as MetaInfo;
-        const trek2=tre2[k2] as MetaInfo;
+    assert.eq(Object.keys(treeSrc).length, Object.keys(treeExt).length);
+    for (let kex of Object.keys(treeExt)) {
+        let ksrc = kex.replace(/\/ext/, "");
+        _console.log("ksrc-kex", ksrc, kex);
+        //assert(excludes.every((e)=>!k.startsWith(e)));
+        assert(excludes.every((e)=>!kex.startsWith(e)));
+        assert(kex in treeExt);
+        assert(ksrc in treeSrc);
+        const trek=treeSrc[ksrc] as MetaInfo;
+        const trek2=treeExt[kex] as MetaInfo;
         assert(trek.lastUpdate);
         _console.log("mtime diff", trek.lastUpdate - trek2.lastUpdate);
         //assert(Math.abs(tre[k].lastUpdate-tre2[k2].lastUpdate)<2000);
         assert(Math.abs(
             Math.floor(trek.lastUpdate / 2000) -
             Math.floor(trek2.lastUpdate / 2000)) <= 2,
-            `Zip timestamp not match ${k}=${trek.lastUpdate}, ${k2}=${trek2.lastUpdate}, Diff=${trek.lastUpdate - trek2.lastUpdate}`
+            `Zip timestamp not match ${ksrc}=${trek.lastUpdate}, ${kex}=${trek2.lastUpdate}, Diff=${trek.lastUpdate - trek2.lastUpdate}`
         );
     }
     await timeout(1000);
