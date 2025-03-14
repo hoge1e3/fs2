@@ -28,11 +28,22 @@ export declare const nodePolyfill: {
             [key: string]: string;
         };
         argv: string[];
+        argv0: string;
+        execPath: string;
         execArgv: string[];
         pid: number;
+        release: {
+            name: string;
+        };
         stdout: {
             write(...a: any[]): void;
             columns: number;
+            fd: number;
+        };
+        stderr: {
+            write(...a: any[]): void;
+            columns: number;
+            fd: number;
         };
         memoryUsage(): {
             heapUsed: number;
