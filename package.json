@@ -35,6 +35,7 @@
     "petit-fs": "^1.2.4"
   },
   "devDependencies": {
+    "@types/web": "^0.0.212",
     "buffer": "^6.0.3",
     "chai": "^5.1.2",
     "ts-loader": "^9.5.1",
