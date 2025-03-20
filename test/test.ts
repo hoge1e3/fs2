@@ -386,10 +386,10 @@ async function chkBigFile(testd: SFile) {
 function checkCopyDir(dir:SFile) {
     let tmp = dir.sibling("tmp_" + dir.name());
     dir.copyTo(tmp);
-    checkSameDir(dir, tmp);
+    checkSameDirInfo(dir, tmp);
     tmp.rm({r:true});
 }
-function checkSameDir(a:SFile, b:SFile) {
+function checkSameDirInfo(a:SFile, b:SFile) {
     let res1 = [] as string[];
     let res2 = [] as string[];
     a.recursive(function (f:SFile) {

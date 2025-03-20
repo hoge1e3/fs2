@@ -16,6 +16,10 @@ export function get(path:string){return FS.get(path);}
 export function mount(mountPoint:string, fs:string|FSClass){
     nodePolyfill.fs.mountSync(mountPoint, fs);
 }
+export async function mountAsync(mountPoint:string, fs:string){
+    await nodePolyfill.fs.mount(mountPoint, fs);
+}
+
 export function unmount(mountPoint:string){
     //nodePolyfill.fs.un
 }
@@ -39,6 +43,7 @@ o FS.getRootFS
 o FS.getRootFS.availFSTypes
 o FS.LSFS
 o FS.mount
+o FS.mountSync
 * FS.unmount
 o FS.SFile.is
 o FS.resolve
