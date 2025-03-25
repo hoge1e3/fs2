@@ -1,6 +1,5 @@
 
 const IgnoreDynamicRequire = require('webpack-ignore-dynamic-require');
-const type="esm";
 const outputs={
   esm: {
     libraryTarget: 'module',
@@ -24,24 +23,21 @@ module.exports = (env,argv)=>["esm","umd","test"].map((type)=>({
     // development に設定するとソースマップ有効でJSファイルが出力される
     mode: 'development',
     // メインとなるJavaScriptファイル（エントリーポイント）
-    entry: (type==="test"? './test/test.ts': './src/index.ts'),
+    entry: (type==="test"? './test/test.js': './src/index.js'),
     experiments: {
     	outputModule: type!=="umd",
     },
     output: outputs[type],
     module: {
         rules: [
-            {
+            /*{
                 // 拡張子 .ts の場合
                 test: /\.ts$/,
                 // TypeScript をコンパイルする
                 use: {
         			loader:'ts-loader',
-        			/*options:{
-        				plugins: ['@babel/plugin-syntax-dynamic-import'],
-        			},*/
         		},
-            },
+            },*/
         ],
         parser: {
           javascript: {
@@ -52,7 +48,7 @@ module.exports = (env,argv)=>["esm","umd","test"].map((type)=>({
     resolve: {
         // 拡張子を配列で指定
         extensions: [
-            '.ts', '.js',
+            '.js',
         ],
     },
     plugins: [
