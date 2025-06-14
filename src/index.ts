@@ -1,6 +1,6 @@
 import {PathUtil, fs, path, os, process, Buffer, getRootFS,FSClass} from "petit-fs";
 export {PathUtil, getRootFS, fs, path, os, process, Buffer, LSFS, FSClass} from "petit-fs";
-import {FileSystemFactory, SFile} from "@hoge1e3/sfile";
+import {FileSystemFactory, Policy, SFile} from "@hoge1e3/sfile";
 export {zip} from "./zip.js";
 import _JSZip from "jszip";
 export const JSZip = _JSZip;
@@ -13,6 +13,7 @@ export const FS = new FileSystemFactory({
     Buffer
 });
 export function get(path:string){return FS.get(path);}
+export function setDefaultPolicy(policy?:Policy) {return FS.setDefaultPolicy(policy);}
 export function mount(mountPoint:string, fs:string|FSClass){
     nodePolyfill.fs.mountSync(mountPoint, fs);
 }
