@@ -4,3 +4,4 @@
 src/index.d.ts
 src/zip.d.ts
 test/test.d.ts
+.tsbuildinfo
