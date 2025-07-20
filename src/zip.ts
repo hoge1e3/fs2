@@ -24,11 +24,15 @@ export class zip {
         function getTimestamp(f:SFile) {
             return new Date(f.lastUpdate() - new Date().getTimezoneOffset() * 60 * 1000);
         }
+        function isMissingLink(f:SFile) {
+            return (!!f.isLink()) && !f.resolveLink().exists();
+        }
         async function loop(dst:JSZip, dir:SFile) {
             for (let f of dir.listFiles({...options, cache:true})) {
                 if (options.progress) {
                     await options.progress(f);
                 }
+                if (f.isLink()) continue;
                 if (f.isDir()) {
                     const sf = dst.folder(f.name().replace(/[\/\\]$/, ""));/*, {
                         date: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000)
