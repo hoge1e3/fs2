@@ -1,6 +1,6 @@
 {
   "name": "@hoge1e3/fs2",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Combination of petit-fs and SFile",
   "type": "module",
   "types": "./src/index.d.ts",
