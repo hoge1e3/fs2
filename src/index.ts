@@ -14,11 +14,11 @@ export const FS = new FileSystemFactory({
 });
 export function get(path:string){return FS.get(path);}
 export function setDefaultPolicy(policy?:Policy) {return FS.setDefaultPolicy(policy);}
-export function mount(mountPoint:string, fs:string|FSClass, options:any={}){
-    nodePolyfill.fs.mountSync(mountPoint, fs, options);
+export function mount(mountPoint:string, fs:string|FSClass, options:any={}):FSClass{
+    return nodePolyfill.fs.mountSync(mountPoint, fs, options);
 }
-export async function mountAsync(mountPoint:string, fs:string, options:any={}){
-    await nodePolyfill.fs.mount(mountPoint, fs, options);
+export async function mountAsync(mountPoint:string, fs:string, options:any={}):Promise<FSClass>{
+    return await nodePolyfill.fs.mount(mountPoint, fs, options);
 }
 
 export function unmount(mountPoint:string){
