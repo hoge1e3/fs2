@@ -33,7 +33,7 @@
     "@types/file-saver": "^2.0.7",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
-    "petit-fs": "^1.5.4"
+    "petit-fs": "^1.5.5"
   },
   "devDependencies": {
     "@types/web": "^0.0.278",
