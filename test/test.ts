@@ -67,12 +67,14 @@ try {
     const g=(globalThis as any);
     g.root=root;
     const fs=FS.nodePolyfill.fs;
+    const dev=FS.nodePolyfill.dev;
     g.fs=fs;
+    g.dev=dev;
     g.path=FS.nodePolyfill.path;
     g.FS=FS;
     //let cd =root;
     const r=root.rel.bind(root);
-    fs.mountSync("/zip/","ram");
+    dev.mountSync("/zip/","ram");
     const zip=r("zip/");
     await extractFixture(zip);
     const fixture=zip.rel("fixture/");
