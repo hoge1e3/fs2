@@ -1,9 +1,9 @@
-import {PathUtil, fs, dev, path, os, process, Buffer, getRootFS} from "petit-fs";
+import {PathUtil, fs, dev, path, os, process, Buffer} from "petit-fs";
 export {PathUtil, getRootFS, fs, dev, path, os, process, Buffer, LSFS} from "petit-fs";
 import {FileSystemFactory, Policy, SFile} from "@hoge1e3/sfile";
 export {zip} from "./zip.js";
 import _JSZip from "jszip";
-import { IFileSystem } from "petit-fs/src/fs/types.js";
+import { FSTypeName, IFileSystem } from "petit-fs/src/fs/types.js";
 export const JSZip = _JSZip;
 //import * as exp from "node:constants";
 export {SFile} from "@hoge1e3/sfile"
@@ -15,10 +15,10 @@ export const FS = new FileSystemFactory({
 });
 export function get(path:string){return FS.get(path);}
 export function setDefaultPolicy(policy?:Policy) {return FS.setDefaultPolicy(policy);}
-export function mount(mountPoint:string, fs:string|IFileSystem, options:any={}):IFileSystem{
+export function mount(mountPoint:string, fs:FSTypeName, options:any={}):IFileSystem{
     return nodePolyfill.dev.mountSync(mountPoint, fs, options);
 }
-export async function mountAsync(mountPoint:string, fs:string, options:any={}):Promise<IFileSystem>{
+export async function mountAsync(mountPoint:string, fs:FSTypeName, options:any={}):Promise<IFileSystem>{
     return await nodePolyfill.dev.mount(mountPoint, fs, options);
 }
 
