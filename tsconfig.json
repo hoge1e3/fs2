@@ -3,8 +3,8 @@
       // ソースマップを有効化
       "sourceMap": true,
       // TSはECMAScript 5に変換
-      "target": "ES2021",
-      "lib": ["es2021"],
+      "target": "ES2022",
+      "lib": ["es2022"],
       // TSのモジュールはES Modulesとして出力
       "module": "esnext",
       //"allowImportingTsExtensions": true,
